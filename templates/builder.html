@@ -18,7 +18,7 @@
             <div class="col-md-12" style="text-align: center">
 
                 {% for html_page in html_pages %}
-                    <h1>html_page.name</h1>
+                    <h1>{{ html_page.name }}</h1>
                 {% endfor %}
 
                 <!-- Button to Open the Modal -->
@@ -26,27 +26,8 @@
                     + Add Html Page
                 </button>
 
-                <!-- The Modal -->
-                <div class="modal" id="add-html-page">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add new html page</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-
-                            <!-- Modal body -->
-                            <div class="modal-body">
-
-                            </div>
-
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- The actual modal html -->
+                {% include "partials/new_html_modal.html" %}
             </div>
         </div>
     </div>

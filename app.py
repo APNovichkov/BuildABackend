@@ -37,7 +37,18 @@ def create_new_project():
 @app.route("/builder/add-html", methods=['POST'])
 def add_html_page():
     """Add new HTML page to builder."""
-    pass
+
+    html_page = {
+        'name': request.form.get("name"),
+        'url': request.form.get('url'),
+        'http_verb': request.form.get("http-verb"),
+        'action': request.form.get("action"),
+        'description': request.form.get("description")
+    }
+
+    html_pages.insert_one(html_page)
+    return redirect(url_for("show_builder"))
+
 
 @app.route("/builder/delete-html-page/<html_page_id>")
 def remove_html_page():
