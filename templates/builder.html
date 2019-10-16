@@ -43,6 +43,37 @@
                     {% include "partials/new_html_modal.html" %}
                 </div>
             </div>
+
+            <!-- Routes -->
+            <div class="col-md-4" style="text-align: center">
+                <div class="routes">
+                    <!-- Show all current routes -->
+                    {% for route in routes %}
+                        <div class="route-snippet">
+                            {% include "partials/route_snippet.html" %}
+                        </div>
+                    {% endfor %}
+
+                    <!-- Show if no routes present -->
+                    {% if num_routes == 0 %}
+                        <div style="padding-top:15px">
+                            <span class="badge badge-secondary">No Routes yet!</span>
+                        </div>
+                    {% endif %}
+
+                    <!-- Button to open the Add Database Modal -->
+                    <div class="add-route-button">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-route">
+                            + Add Route
+                        </button>
+                    </div>
+
+                    {% include "partials/new_route_modal.html" %}
+
+
+                </div>
+            </div>
+
             <!-- Databases -->
             <div class="col-md-4" style="text-align: center">
                 <div class="databases">
@@ -62,7 +93,7 @@
 
                     <!-- Button to open the Add Database Modal -->
                     <div class="add-database-button">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-database-page">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-database">
                             + Add Database
                         </button>
                     </div>
@@ -71,9 +102,6 @@
 
                 </div>
             </div>
-
-
-            <div class="col-md-4"></div>
         </div>
     </div>
 </div>

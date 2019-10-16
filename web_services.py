@@ -10,6 +10,7 @@ class DataProvider():
         self.projects = self.db['projects']
         self.html_pages = self.db['html_pages']
         self.databases = self.db['databases']
+        self.routes = self.db['routes']
 
     def create_project_downloadable(self, project_id):
         project = self.projects.find_one({'_id': ObjectId(project_id)})
@@ -20,6 +21,13 @@ class DataProvider():
             html_files_to_create.append(html_file)
         print("HTML files to create:")
         print(html_files_to_create)
+
+        # Get routes
+        routes_to_create = []
+        for route in self.routes.find({'project_id': project_id}):
+            routes_to_create.append(route)
+        print("Routes to create:")
+        print(routes_to_create)
 
         # Get databases
         databases_to_create = []
@@ -38,7 +46,7 @@ class DataProvider():
         self.create_html_files(html_files_to_create, project, output_dir)
 
         # Write app.py
-        self.write_app_dot_py(output_dir, html_files_to_create, project['name'], databases_to_create)
+        self.write_app_dot_py(output_dir, html_files_to_create, databases_to_create, routes_to_create, project['name'])
 
     def create_html_files(self, html_files_to_create, project, output_dir):
         # Create directory
@@ -52,7 +60,7 @@ class DataProvider():
         for html_file in html_files_to_create:
             self.write_html_file(html_files_path, html_file['name'])
 
-    def write_app_dot_py(self, output_dir, html_files, project_name, databases):
+    def write_app_dot_py(self, output_dir, html_files, databases, routes, project_name):
         f = open("{}/app.py".format(output_dir), "w+", encoding="utf-8")
 
         # import statements
@@ -73,7 +81,7 @@ class DataProvider():
                     f.write("{} = {}[\'{}\']\n".format(collection, database['name'].lower(), collection))
             f.write('\n\n')
 
-        # app.route statements
+        # app.route statements for html files
         for html_file in html_files:
             if html_file['http_verb'].lower() != 'post':
                 f.write("@app.route(\'{}\')\n".format(html_file['url']))
@@ -82,6 +90,27 @@ class DataProvider():
 
             f.write("def {}_function():\n".format(html_file['name']))
             f.write("\t\"\"\"{}.\"\"\"\n\n".format(html_file['description']))
+            f.write("\tpass\n\n")
+
+        # app.route statements for routes
+        # TODO -> fix logic, remove duplicate code
+        for route in routes:
+            if route['http_verb'].lower() != 'post':
+                if "<" in route['url']:
+                    f.write("@app.route(\'{}\')\n".format(route['url']))
+
+                    start_index = route['url'].index("<") + 1
+                    end_index = route['url'].index(">")
+
+                    f.write("def {}_function({}):\n".format(route['name'], route['url'][start_index:end_index]))
+                else:
+                    f.write("@app.route(\'{}\', methods=['POST'])\n".format(route['url']))
+                    f.write("def {}_function():\n".format(route['name']))
+            else:
+                f.write("@app.route(\'{}\', methods=['POST'])\n".format(route['url']))
+                f.write("def {}_function():\n".format(route['name']))
+
+            f.write("\t\"\"\"{}.\"\"\"\n\n".format(route['description']))
             f.write("\tpass\n\n")
 
         # if main statement

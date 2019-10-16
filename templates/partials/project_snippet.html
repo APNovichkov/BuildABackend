@@ -1,8 +1,8 @@
 <div class="card bg-info">
     <div class="card-body text-center">
         <h3 class="card-title">{{ project.name }}</h3>
-        <p class="card-text">Time Created:  {{ project.time_created }}</p>
-        <p class="card-text">Last modified: {{ project.last_modified }}</p>
+        <p class="card-text"><b>Time Created</b><br> {{ project.time_created }}</p>
+        <p class="card-text"><b>Last modified</b><br> {{ project.last_modified }}</p>
         <form action="/builder/{{ project._id }}">
             <button type="submit" class="btn btn-dark">Lets Go!</button>
         </form>

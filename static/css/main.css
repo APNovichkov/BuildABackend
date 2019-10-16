@@ -11,12 +11,21 @@
     padding-top: 20px;
 }
 
+.route-snippet{
+    padding-top: 20px;
+}
+
 .add-html-button{
     padding-top: 20px;
     padding-bottom: 20px;
 }
 
 .add-database-button{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.add-route-button{
     padding-top: 20px;
     padding-bottom: 20px;
 }
