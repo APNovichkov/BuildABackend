@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for
+import flask as fl
+from flask import Flask, Response, render_template, request, redirect, url_for, send_file
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from web_services import DataProvider
 from datetime import datetime
+from io import BytesIO
 
 # bcrypt
 # string.replace() for time
@@ -161,15 +163,18 @@ def remove_route(route_id):
 
 @app.route("/builder/download/<project_id>")
 def download_project(project_id):
-    """Uses the DataProvider to call the download method giving it the project_id"""
+    """Use the DataProvider to call the download method giving it the project_id."""
 
-    zip_filename = dp.create_project_downloadable(project_id)
+    zip_file, zip_filename = dp.create_project_downloadable(project_id)
 
     print("This is the filename in flask: {}".format(zip_filename))
 
-    # response = Response(r.content, mimetype='application/zip', headers={'Content-Disposition': 'attachment;filename={}'.format(zip_filename)})
-
-    return redirect(url_for("show_builder", project_id=project_id))
+    return fl.send_file(
+        zip_file,
+        mimetype='application/zip',
+        as_attachment=True,
+        attachment_filename='downloadable_output.zip'
+    )
 
 
 if __name__ == "__main__":

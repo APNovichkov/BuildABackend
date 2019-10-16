@@ -2,6 +2,8 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 import os
 import zipfile
+import shutil
+import io
 
 
 class DataProvider():
@@ -49,9 +51,9 @@ class DataProvider():
         # Write app.py
         self.write_app_dot_py(output_dir, html_files_to_create, databases_to_create, routes_to_create, project['name'])
 
-        zip_filepath = self.zip_directory(output_dir)
+        zip_file, zip_filepath = self.zip_directory(output_dir)
 
-        return zip_filepath
+        return zip_file, zip_filepath
 
     def create_html_files(self, html_files_to_create, project, output_dir):
         # Create directory
@@ -160,16 +162,18 @@ class DataProvider():
 
         zip_filepath = dir_name + '.zip'
 
-        # writing files to a zipfile
-        zip_file = zipfile.ZipFile(zip_filepath, 'w')
-        with zip_file:
-            # writing each file one by one
+        zip_file = io.BytesIO()
+        with zipfile.ZipFile(zip_file, mode='w') as z:
             for file in filePaths:
-                zip_file.write(file)
+                z.write(file)
+
+        zip_file.seek(0)
 
         print('{} file is created successfully!'.format(zip_filepath))
 
-        return zip_filepath
+        self.remove_output_dir(output_path)
+
+        return zip_file, zip_filepath
 
     def retrieve_file_paths(self, dir_name):
         # setup file paths variable
@@ -188,8 +192,9 @@ class DataProvider():
         # return all paths
         return file_paths
 
-    def remove_zip_file(self, zip_filepath):
+    def remove_output_dir(self, output_path):
+        shutil.rmtree(output_path)
 
-        
-
+    def remove_zip_file(self, zip_filepath, output_dir):
+        os.remove(zip_filepath)
         pass
