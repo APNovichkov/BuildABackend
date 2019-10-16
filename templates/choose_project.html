@@ -13,34 +13,34 @@
             <div class="col-md-3"></div>
         </div>
 
-        <div class="row" style='text-align: center;'>
-            <div class="col-md-1"></div>
-            <div class="col-md-9">
-                {% for project in projects %}
-                    <div class="card-columns">
+
+        <div class="row" style='text-align: center; '>
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="project-grid">
+                    {% for project in projects %}
                         {% include "partials/project_snippet.html" %}
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
-            <div class=col-md-1></div>
+            <div class="col-md-3"></div>
         </div>
 
         <div class="row" style='text-align: center;'>
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <form action="/builder/new" method="POST">
-                    <input type="text" class="form-control" name="project-name" placeholder="Project Name">
-                    <button type="submit" class="btn btn-dark form-control" style="margin-top: 10px">Create Project</button>
+            <div class="col-md-5"></div>
+            <div class="col-md-2">
+                <form action="/builder/new">
+                    <button type="submit" class="btn btn-dark form-control" style="margin-top: 10px">Create New Project</button>
                 </form>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-5"></div>
         </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="../static/js/main.js">
+    <script src="../static/js/main.js"></script>
 </body>
 
 {% endblock %}

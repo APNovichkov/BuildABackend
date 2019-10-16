@@ -1,5 +1,13 @@
 <div class="card bg-info">
     <div class="card-body text-center">
-      <p class="card-text">{{ project.name }}</p>
+        <h3 class="card-title">{{ project.name }}</h3>
+        <p class="card-text">Time Created:  {{ project.time_created }}</p>
+        <p class="card-text">Last modified: {{ project.last_modified }}</p>
+        <form action="/builder/{{ project._id }}">
+            <button type="submit" class="btn btn-dark">Lets Go!</button>
+        </form>
+        <form action="/builder/delete/{{ project._id }}">
+            <button type="submit" class="btn btn-danger" style="margin-top: 10px">Delete Project</button>
+        </form>
     </div>
-  </div>
+</div>

@@ -16,14 +16,17 @@ projects = db['projects']
 def index():
     return redirect(url_for("show_choose_project_page"))
 
-@app.route("/builder")
-def show_builder():
+@app.route("/builder/<project_id>")
+def show_builder(project_id):
     """Show the builder template."""
+
+    print("This is id of the product: {}".format(project_id))
+    print("This is the name of that project: {}".format(projects.find_one({'_id': ObjectId(project_id)})['name']))
 
     return render_template(
         "builder.html",
         html_pages=html_pages.find(),
-        projects=projects.find(),
+        project=projects.find_one({'_id': ObjectId(project_id)}),
         num_html_pages=html_pages.count_documents({}))
 
 @app.route("/choose-project")
@@ -34,6 +37,13 @@ def show_choose_project_page():
         "choose_project.html",
         projects=projects.find())
 
+@app.route("/builder/delete/<project_id>")
+def remove_project(project_id):
+    """Delete project based on project_id thats passted in."""
+
+    projects.delete_one({'_id': ObjectId(project_id)})
+
+    return redirect(url_for("show_choose_project_page"))
 
 @app.route("/builder/new")
 def show_new_project_page():
@@ -46,9 +56,9 @@ def create_new_project():
     """Create NEW PROJECT."""
 
     project = {'name': request.form.get("project-name")}
-    projects.insert_one(project)
+    project_id = projects.insert_one(project).inserted_id
 
-    return redirect(url_for("show_builder"))
+    return redirect(url_for("show_builder", project_id=project_id))
 
 @app.route("/builder/add-html", methods=['POST'])
 def add_html_page():

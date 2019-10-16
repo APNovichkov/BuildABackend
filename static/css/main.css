@@ -15,3 +15,11 @@
 .new-project-page{
     padding-top: 25%;
 }
+
+.project-grid{
+    margin-top: 30px;
+    display: grid;
+    grid-gap: 7px;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding-bottom: 40px;
+}
