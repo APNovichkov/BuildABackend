@@ -1,0 +1,46 @@
+{% extends "landing_base.html" %}
+
+{% block content %}
+
+
+<body style="margin: 0px; background-color: #FBE8A6;">
+    <div class="choose-project-page">
+        <div class="row" style='text-align: center;'>
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h2 style='margin-top: 50px'>Choose an <b>Existing</b> Project, or Create a <b>New</b> One!</h2>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+
+        <div class="row" style='text-align: center;'>
+            <div class="col-md-1"></div>
+            <div class="col-md-9">
+                {% for project in projects %}
+                    <div class="card-columns">
+                        {% include "partials/project_snippet.html" %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class=col-md-1></div>
+        </div>
+
+        <div class="row" style='text-align: center;'>
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <form action="/builder/new" method="POST">
+                    <input type="text" class="form-control" name="project-name" placeholder="Project Name">
+                    <button type="submit" class="btn btn-dark form-control" style="margin-top: 10px">Create Project</button>
+                </form>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="../static/js/main.js">
+</body>
+
+{% endblock %}

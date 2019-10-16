@@ -14,7 +14,7 @@ projects = db['projects']
 
 @app.route("/")
 def index():
-    return redirect(url_for("show_new_project_page"))
+    return redirect(url_for("show_choose_project_page"))
 
 @app.route("/builder")
 def show_builder():
@@ -25,6 +25,15 @@ def show_builder():
         html_pages=html_pages.find(),
         projects=projects.find(),
         num_html_pages=html_pages.count_documents({}))
+
+@app.route("/choose-project")
+def show_choose_project_page():
+    """Show choose project page or create new project."""
+
+    return render_template(
+        "choose_project.html",
+        projects=projects.find())
+
 
 @app.route("/builder/new")
 def show_new_project_page():

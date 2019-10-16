@@ -2,12 +2,25 @@
 
 {% block content %}
 
-<div class="new-project-page">
-    <form action="/builder/new" method="POST">
-        <label for="project-name">Enter Your Project Name</label><br>
-        <input type="text" name="project-name" placeholder="Project Name">
-        <button type="submit" class="btn btn-dark">Create Project</button>
-    </form>
-</div>
+
+<body style="margin: 0px; background-color: #F4976C;">
+    <div class="new-project-page">
+        <div class="row" style='text-align: center;'>
+            <div class="col-md-5"></div>
+            <div class="col-md-2">
+                <form action="/builder/new" method="POST">
+                    <input type="text" class="form-control" name="project-name" placeholder="Project Name">
+                    <button type="submit" class="btn btn-dark form-control" style="margin-top: 10px">Create Project</button>
+                </form>
+            </div>
+            <div class=col-md-5></div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="../static/js/main.js">
+</body>
 
 {% endblock %}
