@@ -10,6 +10,7 @@ db = client['BuildABackend']
 # collections
 html_pages = db['html_pages']
 projects = db['projects']
+databases = db['databases']
 
 
 @app.route("/")
@@ -26,6 +27,7 @@ def show_builder(project_id):
     return render_template(
         "builder.html",
         html_pages=html_pages.find({'project_id': project_id}),
+        databases=databases.find({'project_id': project_id}),
         project=projects.find_one({'_id': ObjectId(project_id)}),
         num_html_pages=html_pages.find({'project_id': project_id}).count())
 
@@ -61,6 +63,7 @@ def create_new_project():
 
     return redirect(url_for("show_builder", project_id=project_id))
 
+# CRUD for HTML pages
 @app.route("/builder/add-html", methods=['POST'])
 def add_html_page():
     """Add new HTML page to builder."""
@@ -87,6 +90,23 @@ def remove_html_page(html_page_id):
     html_pages.delete_one({'_id': ObjectId(html_page_id)})
 
     return redirect(url_for("show_builder", project_id=project_id))
+
+# CRUD for DATABASES
+@app.route("/builder/add-database", methods=['POST'])
+def add_database():
+    """Add new database to builder."""
+
+    collections = request.form.get('collections').split()
+
+    database = {
+        'project_id': request.form.get("project-id"),
+        'framework': request.form.get("database-framework"),
+        'name': request.form.get("name"),
+        'collections': collections}
+
+    databases.insert_one(database)
+
+    return redirect(url_for("show_builder", project_id=database['project_id']))
 
 
 if __name__ == "__main__":

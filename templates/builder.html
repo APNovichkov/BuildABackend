@@ -14,10 +14,10 @@
 
 <div class="row-centered" style="background-color: #D1D7E0">
     <div class="container">
-        <div class="row-centered">
+        <div class="row">
             <!-- HTML PAGES -->
-            <div class="html-pages">
-                <div class="col-md-4" style="text-align: center">
+            <div class="col-md-4" style="text-align: center">
+                <div class="html-pages">
                     <!-- Show all current html_pages -->
                     {% for html_page in html_pages %}
                         <div class="html-snippet">
@@ -32,7 +32,7 @@
                         </div>
                     {% endif %}
 
-                    <!-- Button to Open the Modal -->
+                    <!-- Button to open the Add HTML-page Modal -->
                     <div class="add-html-button">
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-html-page">
                             + Add Html Page
@@ -44,11 +44,34 @@
                 </div>
             </div>
             <!-- Databases -->
-            <div class="databases">
-                <div class="col-md-4">
+            <div class="col-md-4">
+                <div class="databases">
+                    <!-- Show all current databases -->
+                    {% for database in databases %}
+                        <div class="database-snippet">
+                            <h1>{{ database.name }}</h1>
+                        </div>
+                    {% endfor %}
+
+                    <!-- Show if no databases present -->
+                    {% if num_dabases == 0 %}
+                        <div style="padding-top:15px">
+                            <span class="badge badge-secondary">No Databases yet!</span>
+                        </div>
+                    {% endif %}
+
+                    <!-- Button to open the Add Database Modal -->
+                    <div class="add-database-button">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-database-page">
+                            + Add Database
+                        </button>
+                    </div>
+
+                    {% include "partials/new_database_modal.html" %}
 
                 </div>
             </div>
+
 
             <div class="col-md-4"></div>
         </div>
