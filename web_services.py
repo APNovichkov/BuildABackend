@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import os
 
 
 class DataProvider():
@@ -13,11 +14,22 @@ class DataProvider():
     def create_project_downloadable(self, project_id):
         html_files_to_create = []
 
-        print("Successfully called this function!")
-
-        print("The project id is: {}".format(project_id))
-
         for html_file in self.html_pages.find({'project_id': project_id}):
             html_files_to_create.append(html_file)
 
+        print("HTML files to create:")
         print(html_files_to_create)
+
+        databases_to_create = []
+
+        for database in self.databases.find({'project_id': project_id}):
+            databases_to_create.append(database)
+
+        print("Databases to create:")
+        print(databases_to_create)
+
+        print("\nCurrent working directory: {}".format(os.getcwd()))
+
+        print("Creating tmp directory while on flask")
+
+        os.mkdir("/Users/andreynovichkov/Desktop/Make-School/Term-1/Intensive/BuildABackend/tmp")
