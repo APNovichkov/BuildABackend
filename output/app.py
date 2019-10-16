@@ -1,16 +1,23 @@
 from flask import Flask, render_template, request, redirect, url_for
+from pymongo import MongoClient
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
-@app.route('/builder/add-route', methods=['POST'])
-def new_function():
-	"""Creates new route."""
+client = MongoClient()
+test = client['test']
+hi = test['hi']
+
+
+@app.route('test')
+def test_function():
+	"""test."""
 
 	pass
 
-@app.route('/builder/detele-route/<route_id>')
-def delete_function(route_id):
-	"""Deletes route by route_id."""
+@app.route('test')
+def test_function():
+	"""test."""
 
 	pass
 

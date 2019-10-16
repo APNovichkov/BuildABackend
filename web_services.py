@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 import os
+import zipfile
 
 
 class DataProvider():
@@ -48,6 +49,10 @@ class DataProvider():
         # Write app.py
         self.write_app_dot_py(output_dir, html_files_to_create, databases_to_create, routes_to_create, project['name'])
 
+        zip_filepath = self.zip_directory(output_dir)
+
+        return zip_filepath
+
     def create_html_files(self, html_files_to_create, project, output_dir):
         # Create directory
         html_files_path = output_dir + "/templates"
@@ -93,18 +98,15 @@ class DataProvider():
             f.write("\tpass\n\n")
 
         # app.route statements for routes
-        # TODO -> fix logic, remove duplicate code
         for route in routes:
             if route['http_verb'].lower() != 'post':
+                f.write("@app.route(\'{}\')\n".format(route['url']))
                 if "<" in route['url']:
-                    f.write("@app.route(\'{}\')\n".format(route['url']))
-
                     start_index = route['url'].index("<") + 1
                     end_index = route['url'].index(">")
 
                     f.write("def {}_function({}):\n".format(route['name'], route['url'][start_index:end_index]))
                 else:
-                    f.write("@app.route(\'{}\', methods=['POST'])\n".format(route['url']))
                     f.write("def {}_function():\n".format(route['name']))
             else:
                 f.write("@app.route(\'{}\', methods=['POST'])\n".format(route['url']))
@@ -143,3 +145,51 @@ class DataProvider():
         f.write("{% block content %}\n\n")
         f.write("<h1>This is {}.html!</h1>\n\n".format(html_filename))
         f.write("{% endblock %}")
+
+    def zip_directory(self, output_path):
+        # Assign the name of the directory to zip
+        dir_name = output_path
+
+        # Call the function to retrieve all files and folders of the assigned directory
+        filePaths = self.retrieve_file_paths(dir_name)
+
+        # printing the list of all files to be zipped
+        print('The following list of files will be zipped:')
+        for fileName in filePaths:
+            print(fileName)
+
+        zip_filepath = dir_name + '.zip'
+
+        # writing files to a zipfile
+        zip_file = zipfile.ZipFile(zip_filepath, 'w')
+        with zip_file:
+            # writing each file one by one
+            for file in filePaths:
+                zip_file.write(file)
+
+        print('{} file is created successfully!'.format(zip_filepath))
+
+        return zip_filepath
+
+    def retrieve_file_paths(self, dir_name):
+        # setup file paths variable
+        file_paths = []
+
+        # Read all directory, subdirectories and file lists
+        for root, directories, files in os.walk(dir_name):
+            for filename in files:
+                # Create the full filepath by using os module.
+                file_path = os.path.join(root, filename)
+                file_paths.append(file_path)
+
+        print("Filepaths:")
+        print(file_paths)
+
+        # return all paths
+        return file_paths
+
+    def remove_zip_file(self, zip_filepath):
+
+        
+
+        pass

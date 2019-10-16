@@ -4,6 +4,9 @@ from bson.objectid import ObjectId
 from web_services import DataProvider
 from datetime import datetime
 
+# bcrypt
+# string.replace() for time
+
 app = Flask(__name__)
 
 client = MongoClient()
@@ -146,7 +149,7 @@ def add_route():
 
     return redirect(url_for("show_builder", project_id=route['project_id']))
 
-@app.route("/builder/delete_route/<route_id>")
+@app.route("/builder/delete_route/<route_id>", methods=['POST'])
 def remove_route(route_id):
 
     project_id = routes.find_one({'_id': ObjectId(route_id)})['project_id']
@@ -160,7 +163,11 @@ def remove_route(route_id):
 def download_project(project_id):
     """Uses the DataProvider to call the download method giving it the project_id"""
 
-    dp.create_project_downloadable(project_id)
+    zip_filename = dp.create_project_downloadable(project_id)
+
+    print("This is the filename in flask: {}".format(zip_filename))
+
+    # response = Response(r.content, mimetype='application/zip', headers={'Content-Disposition': 'attachment;filename={}'.format(zip_filename)})
 
     return redirect(url_for("show_builder", project_id=project_id))
 
