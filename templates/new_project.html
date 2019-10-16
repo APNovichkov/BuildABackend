@@ -1,0 +1,13 @@
+{% extends "landing_base.html" %}
+
+{% block content %}
+
+<div class="new-project-page">
+    <form action="/builder/new" method="POST">
+        <label for="project-name">Enter Your Project Name</label><br>
+        <input type="text" name="project-name" placeholder="Project Name">
+        <button type="submit" class="btn btn-dark">Create Project</button>
+    </form>
+</div>
+
+{% endblock %}

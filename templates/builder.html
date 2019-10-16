@@ -15,20 +15,42 @@
 <div class="row-centered" style="background-color: #D1D7E0">
     <div class="container">
         <div class="row-centered">
-            <div class="col-md-12" style="text-align: center">
+            <!-- HTML PAGES -->
+            <div class="html-pages">
+                <div class="col-md-4" style="text-align: center">
+                    <!-- Show all current html_pages -->
+                    {% for html_page in html_pages %}
+                        <div class="html-snippet">
+                            {% include "partials/html_page_snippet.html" %}
+                        </div>
+                    {% endfor %}
 
-                {% for html_page in html_pages %}
-                    <h1>{{ html_page.name }}</h1>
-                {% endfor %}
+                    <!-- Show if no html pages -->
+                    {% if num_html_pages == 0 %}
+                        <div style="padding-top:15px">
+                            <span class="badge badge-secondary">No HTML pages yet!</span>
+                        </div>
+                    {% endif %}
 
-                <!-- Button to Open the Modal -->
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-html-page">
-                    + Add Html Page
-                </button>
+                    <!-- Button to Open the Modal -->
+                    <div class="add-html-button">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-html-page">
+                            + Add Html Page
+                        </button>
+                    </div>
 
-                <!-- The actual modal html -->
-                {% include "partials/new_html_modal.html" %}
+                    <!-- The actual modal html -->
+                    {% include "partials/new_html_modal.html" %}
+                </div>
             </div>
+            <!-- Databases -->
+            <div class="databases">
+                <div class="col-md-4">
+                    <h1>TEST</h1>
+                </div>
+            </div>
+
+            <div class="col-md-4"></div>
         </div>
     </div>
 </div>

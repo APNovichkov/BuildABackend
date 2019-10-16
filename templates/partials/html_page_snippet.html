@@ -1,0 +1,13 @@
+<div class="card bg-warning" style="padding: 15px">
+    <h3 class="card-title">URL: {{ html_page.url }}</h3>
+    <div class="card-body text-center">
+        <h5 class="card-text">Filename: {{ html_page.name }}</h5>
+        <h5 class="card-text">HTTP Verb: {{ html_page.http_verb }}</h5>
+        <h5 class="card-text">Action: {{ html_page.action }}</h5>
+        <p class="card-text">{{ html_page.description }}</p>
+
+        <form action="/builder/delete-html-page/{{ html_page._id }}">
+            <button type="submit" class="btn btn-danger">Delete Page</button>
+        </form>
+    </div>
+  </div>

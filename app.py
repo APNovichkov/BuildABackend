@@ -11,9 +11,10 @@ db = client['BuildABackend']
 html_pages = db['html_pages']
 projects = db['projects']
 
+
 @app.route("/")
 def index():
-    return redirect(url_for("show_builder"))
+    return redirect(url_for("show_new_project_page"))
 
 @app.route("/builder")
 def show_builder():
@@ -22,17 +23,23 @@ def show_builder():
     return render_template(
         "builder.html",
         html_pages=html_pages.find(),
-        projects=projects.find())
+        projects=projects.find(),
+        num_html_pages=html_pages.count_documents({}))
 
 @app.route("/builder/new")
 def show_new_project_page():
     """Show the NEW PROJECT form/page."""
-    pass
+
+    return render_template("new_project.html")
 
 @app.route("/builder/new", methods=['POST'])
 def create_new_project():
     """Create NEW PROJECT."""
-    pass
+
+    project = {'name': request.form.get("project-name")}
+    projects.insert_one(project)
+
+    return redirect(url_for("show_builder"))
 
 @app.route("/builder/add-html", methods=['POST'])
 def add_html_page():
@@ -51,9 +58,11 @@ def add_html_page():
 
 
 @app.route("/builder/delete-html-page/<html_page_id>")
-def remove_html_page():
+def remove_html_page(html_page_id):
     """Remove HTML page from builder by the page_id given."""
-    pass
+
+    html_pages.delete_one({'_id': ObjectId(html_page_id)})
+    return redirect(url_for("show_builder"))
 
 
 if __name__ == "__main__":
