@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from web_services import DataProvider
 
 app = Flask(__name__)
 
 client = MongoClient()
 db = client['BuildABackend']
+dp = DataProvider()
 
 # collections
 html_pages = db['html_pages']
@@ -21,15 +23,13 @@ def index():
 def show_builder(project_id):
     """Show the builder template."""
 
-    print("This is id of the product: {}".format(project_id))
-    print("This is the name of that project: {}".format(projects.find_one({'_id': ObjectId(project_id)})['name']))
-
     return render_template(
         "builder.html",
         html_pages=html_pages.find({'project_id': project_id}),
         databases=databases.find({'project_id': project_id}),
         project=projects.find_one({'_id': ObjectId(project_id)}),
-        num_html_pages=html_pages.find({'project_id': project_id}).count())
+        num_html_pages=html_pages.find({'project_id': project_id}).count(),
+        num_databases=databases.find({'project_id': project_id}).count())
 
 @app.route("/choose-project")
 def show_choose_project_page():
@@ -107,6 +107,25 @@ def add_database():
     databases.insert_one(database)
 
     return redirect(url_for("show_builder", project_id=database['project_id']))
+
+@app.route("/builder/delete-database/<database_id>")
+def remove_database(database_id):
+    """Remove Database from builder by the database_id given."""
+
+    project_id = databases.find_one({'_id': ObjectId(database_id)})['project_id']
+
+    databases.delete_one({'_id': ObjectId(database_id)})
+
+    return redirect(url_for("show_builder", project_id=project_id))
+
+
+@app.route("/builder/download/<project_id>")
+def download_project(project_id):
+    """Uses the DataProvider to call the download method giving it the project_id"""
+
+    dp.create_project_downloadable(project_id)
+
+    return redirect(url_for("show_builder", project_id=project_id))
 
 
 if __name__ == "__main__":

@@ -44,17 +44,17 @@
                 </div>
             </div>
             <!-- Databases -->
-            <div class="col-md-4">
+            <div class="col-md-4" style="text-align: center">
                 <div class="databases">
                     <!-- Show all current databases -->
                     {% for database in databases %}
                         <div class="database-snippet">
-                            <h1>{{ database.name }}</h1>
+                            {% include "partials/database_snippet.html" %}
                         </div>
                     {% endfor %}
 
                     <!-- Show if no databases present -->
-                    {% if num_dabases == 0 %}
+                    {% if num_databases == 0 %}
                         <div style="padding-top:15px">
                             <span class="badge badge-secondary">No Databases yet!</span>
                         </div>
@@ -76,6 +76,14 @@
             <div class="col-md-4"></div>
         </div>
     </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12" style="text-align: center; margin-top: 20px">
+
+    <form action="/builder/download/{{ project._id }}">
+        <button type="submit" class="btn btn-dark">Download</button>
+    </form>
 </div>
 
 
