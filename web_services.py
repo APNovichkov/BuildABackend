@@ -9,8 +9,11 @@ import io
 
 class DataProvider():
     def __init__(self):
-        self.client = MongoClient()
-        self.db = self.client['BuildABackend']
+        self.host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/BuildABackend')
+        self.client = MongoClient(host=f'{self.host}?retryWrites=false')
+        self.db = self.client.get_default_database()
+        # self.client = MongoClient()
+        # self.db = self.client['BuildABackend']
         self.projects = self.db['projects']
         self.html_pages = self.db['html_pages']
         self.databases = self.db['databases']
