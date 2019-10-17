@@ -2,118 +2,121 @@
 
 {% block content %}
 
-<div class="container">
-    <div class="row-centered">
-        <div class="builder-header">
-            <div class="col-md-12" style="text-align: center">
-                <h1>Building {{ project.name }}</h1>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row-centered" style="background-color: #D1D7E0;">
-    <div class="container">
-        <div class="row">
-            <!-- HTML PAGES -->
-            <div class="col-md-4" style="text-align: center">
-                <div class="html-pages">
-                    <!-- Show all current html_pages -->
-                    {% for html_page in html_pages %}
-                        <div class="html-snippet">
-                            {% include "partials/html_page_snippet.html" %}
-                        </div>
-                    {% endfor %}
-
-                    <!-- Show if no html pages -->
-                    {% if num_html_pages == 0 %}
-                        <div style="padding-top:15px">
-                            <span class="badge badge-secondary">No HTML pages yet!</span>
-                        </div>
-                    {% endif %}
-
-                    <!-- Button to open the Add HTML-page Modal -->
-                    <div class="add-html-button">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-html-page">
-                            + Add Html Page
-                        </button>
+<div style="background-color: #ECECEC">
+    <div class="row" style="background-color: #ECECEC">
+        <div class="container">
+            <div class="row-centered">
+                <div class="builder-header">
+                    <div class="col-md-12" style="text-align: center">
+                        <h1 style="color: #38393b">Building {{ project.name }}</h1><hr/>
                     </div>
-
-                    <!-- The actual modal html -->
-                    {% include "partials/new_html_modal.html" %}
-                </div>
-            </div>
-
-            <!-- Routes -->
-            <div class="col-md-4" style="text-align: center">
-                <div class="routes">
-                    <!-- Show all current routes -->
-                    {% for route in routes %}
-                        <div class="route-snippet">
-                            {% include "partials/route_snippet.html" %}
-                        </div>
-                    {% endfor %}
-
-                    <!-- Show if no routes present -->
-                    {% if num_routes == 0 %}
-                        <div style="padding-top:15px">
-                            <span class="badge badge-secondary">No Routes yet!</span>
-                        </div>
-                    {% endif %}
-
-                    <!-- Button to open the Add Database Modal -->
-                    <div class="add-route-button">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-route">
-                            + Add Route
-                        </button>
-                    </div>
-
-                    {% include "partials/new_route_modal.html" %}
-
-
-                </div>
-            </div>
-
-            <!-- Databases -->
-            <div class="col-md-4" style="text-align: center">
-                <div class="databases">
-                    <!-- Show all current databases -->
-                    {% for database in databases %}
-                        <div class="database-snippet">
-                            {% include "partials/database_snippet.html" %}
-                        </div>
-                    {% endfor %}
-
-                    <!-- Show if no databases present -->
-                    {% if num_databases == 0 %}
-                        <div style="padding-top:15px">
-                            <span class="badge badge-secondary">No Databases yet!</span>
-                        </div>
-                    {% endif %}
-
-                    <!-- Button to open the Add Database Modal -->
-                    <div class="add-database-button">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-database">
-                            + Add Database
-                        </button>
-                    </div>
-
-                    {% include "partials/new_database_modal.html" %}
-
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="row-centered" style="background-color: #ECECEC;">
+        <div class="container">
+            <div class="row">
+                <!-- HTML PAGES -->
+                <div class="col-md-4" style="text-align: center">
+                    <div class="html-pages">
+                        <!-- Show all current html_pages -->
+                        {% for html_page in html_pages %}
+                            <div class="html-snippet">
+                                {% include "partials/html_page_snippet.html" %}
+                            </div>
+                        {% endfor %}
+
+                        <!-- Show if no html pages -->
+                        {% if num_html_pages == 0 %}
+                            <div style="padding-top:15px">
+                                <span class="badge badge-secondary">No HTML pages yet!</span>
+                            </div>
+                        {% endif %}
+
+                        <!-- Button to open the Add HTML-page Modal -->
+                        <div class="add-html-button">
+                            <button type="button" class="btn" style="color: #FFFFFF; background-color: #479761" data-toggle="modal" data-target="#add-html-page">
+                                + Add Html Page
+                            </button>
+                        </div>
+
+                        <!-- The actual modal html -->
+                        {% include "partials/new_html_modal.html" %}
+                    </div>
+                </div>
+
+                <!-- Routes -->
+                <div class="col-md-4" style="text-align: center">
+                    <div class="routes">
+                        <!-- Show all current routes -->
+                        {% for route in routes %}
+                            <div class="route-snippet">
+                                {% include "partials/route_snippet.html" %}
+                            </div>
+                        {% endfor %}
+
+                        <!-- Show if no routes present -->
+                        {% if num_routes == 0 %}
+                            <div style="padding-top:15px">
+                                <span class="badge badge-secondary">No Routes yet!</span>
+                            </div>
+                        {% endif %}
+
+                        <!-- Button to open the Add Database Modal -->
+                        <div class="add-route-button">
+                            <button type="button" class="btn" style="color: #FFFFFF; background-color: #479761" data-toggle="modal" data-target="#add-route">
+                                + Add Route
+                            </button>
+                        </div>
+
+                        {% include "partials/new_route_modal.html" %}
+
+
+                    </div>
+                </div>
+
+                <!-- Databases -->
+                <div class="col-md-4" style="text-align: center">
+                    <div class="databases">
+                        <!-- Show all current databases -->
+                        {% for database in databases %}
+                            <div class="database-snippet">
+                                {% include "partials/database_snippet.html" %}
+                            </div>
+                        {% endfor %}
+
+                        <!-- Show if no databases present -->
+                        {% if num_databases == 0 %}
+                            <div style="padding-top:15px">
+                                <span class="badge badge-secondary">No Databases yet!</span>
+                            </div>
+                        {% endif %}
+
+                        <!-- Button to open the Add Database Modal -->
+                        <div class="add-database-button">
+                            <button type="button" class="btn" style="color: #FFFFFF; background-color: #479761" data-toggle="modal" data-target="#add-database">
+                                + Add Database
+                            </button>
+                        </div>
+
+                        {% include "partials/new_database_modal.html" %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" style="text-align: center; margin-top: 20px">
+
+        <form action="/builder/download/{{ project._id }}">
+            <button type="submit" class="btn btn-dark">Download</button>
+        </form>
+    </div>
 </div>
-
-<div class="row">
-    <div class="col-md-12" style="text-align: center; margin-top: 20px">
-
-    <form action="/builder/download/{{ project._id }}">
-        <button type="submit" class="btn btn-dark">Download</button>
-    </form>
-</div>
-
 
 
 

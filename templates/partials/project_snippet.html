@@ -1,10 +1,10 @@
-<div class="card bg-info">
+<div class="card" style="background-color: #B4DFE5">
     <div class="card-body text-center">
-        <h3 class="card-title">{{ project.name }}</h3>
-        <p class="card-text"><b>Time Created</b><br> {{ project.time_created }}</p>
-        <p class="card-text"><b>Last modified</b><br> {{ project.last_modified }}</p>
+        <h3 class="card-title" style="color: #38393b"><b>{{ project.name }}</b></h3><hr/>
+        <p class="card-text" style="color: #38393b"><b>Time Created</b><br> {{ project.time_created }}</p>
+        <p class="card-text" style="color: #38393b"><b>Last modified</b><br> {{ project.last_modified }}</p><hr/>
         <form action="/builder/{{ user_id }}/{{ project._id }}">
-            <button type="submit" class="btn btn-dark">Lets Go!</button>
+            <button type="submit" class="btn btn-dark">Work on This!</button>
         </form>
         <form action="/builder/delete/{{ user_id }}/{{ project._id }}">
             <button type="submit" class="btn btn-danger" style="margin-top: 10px">Delete Project</button>

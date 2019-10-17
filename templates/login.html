@@ -8,16 +8,23 @@
         <div class="row" style='text-align: center;'>
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <h2 style='margin-top: 50px'><b>LogIn</b> With Your Username!</h2>
+                <h2 style='margin-top: 50px'><b>Login</b> With Your Username!</h2>
             </div>
             <div class="col-md-3"></div>
         </div>
 
 
-        <div class="row" style='text-align: center; '>
+        <div class="row" style='text-align: center; margin-top: 40px'>
             <div class="col-md-5"></div>
             <div class="col-md-2">
-                {% include "partials/login_snippet.html" %}
+                <form action="/login/authorize" method="POST">
+                    <div class="form-group">
+                        <input type="text" class='form-control' name='username' placeholder='Username'>
+                        <button type="submit" class="btn btn-dark form-control" style="margin-top:10px">Log In</button>
+                    </div>
+
+                </div>
+
             </div>
             <div class="col-md-5"></div>
         </div>
