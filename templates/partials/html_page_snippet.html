@@ -6,7 +6,7 @@
         <h6 class="card-text">Action: {{ html_page.action }}</h6>
         <p class="card-text">{{ html_page.description }}</p>
 
-        <form action="/builder/delete-html-page/{{ html_page._id }}">
+        <form action="/builder/{{ user_id }}/delete-html-page/{{ html_page._id }}">
             <button type="submit" class="btn btn-danger">Delete Page</button>
         </form>
     </div>

@@ -4,11 +4,11 @@
 
 
 <body style="margin: 0px; background-color: #F4976C;">
-    <div class="new-project-page">
+    <div class="new-project-page" style="margin-top: 25%">
         <div class="row" style='text-align: center;'>
             <div class="col-md-5"></div>
             <div class="col-md-2">
-                <form action="/builder/new" method="POST">
+                <form action="/builder/{{ user_id }}/new" method="POST">
                     <input type="text" class="form-control" name="project-name" placeholder="Project Name">
                     <button type="submit" class="btn btn-dark form-control" style="margin-top: 10px">Create Project</button>
                 </form>

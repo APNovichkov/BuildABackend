@@ -9,7 +9,7 @@
         {% endfor %}
         </ul>
 
-        <form action="/builder/delete-database/{{ database._id }}">
+        <form action="/builder/{{ user_id }}/delete-database/{{ database._id }}">
             <button type="submit" class="btn btn-danger">Delete Database</button>
         </form>
     </div>

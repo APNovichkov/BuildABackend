@@ -6,7 +6,7 @@
         <h6 class="card-text">Action: {{ route.action }}</h6>
         <p class="card-text">{{ route.description }}</p>
 
-        <form action="/builder/delete_route/{{ route._id }}" method="POST">
+        <form action="/builder/{{ user_id }}/delete_route/{{ route._id }}" method="POST">
             <button type="submit" class="btn btn-danger">Delete Route</button>
         </form>
     </div>
