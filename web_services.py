@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from datetime import datetime
 import os
 import zipfile
 import shutil
@@ -160,7 +161,7 @@ class DataProvider():
         for fileName in filePaths:
             print(fileName)
 
-        zip_filepath = dir_name + '.zip'
+        zip_filepath = '{}_{}.zip'.format(dir_name, str(datetime.now()).split()[1].replace(':', '_').replace('.', '_'))
 
         zip_file = io.BytesIO()
         with zipfile.ZipFile(zip_file, mode='w') as z:

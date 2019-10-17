@@ -1,10 +1,10 @@
 import flask as fl
-from flask import Flask, Response, render_template, request, redirect, url_for, send_file
+from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from web_services import DataProvider
 from datetime import datetime
-from io import BytesIO
+
 
 # bcrypt
 # string.replace() for time
