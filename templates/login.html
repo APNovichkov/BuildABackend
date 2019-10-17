@@ -3,35 +3,21 @@
 {% block content %}
 
 
-<body style="margin: 0px; background-color: #FBE8A6;">
-    <div class="choose-project-page">
+<body style="margin: 0px; background-color: #F4976C;">
+    <div class="login-page">
         <div class="row" style='text-align: center;'>
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <h2 style='margin-top: 50px'>Choose an <b>Existing</b> Project, or Create a <b>New</b> One!</h2>
+                <h2 style='margin-top: 50px'><b>LogIn</b> With Your Username!</h2>
             </div>
             <div class="col-md-3"></div>
         </div>
 
 
         <div class="row" style='text-align: center; '>
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="project-grid">
-                    {% for project in projects %}
-                        {% include "partials/project_snippet.html" %}
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="col-md-2"></div>
-        </div>
-
-        <div class="row" style='text-align: center;'>
             <div class="col-md-5"></div>
             <div class="col-md-2">
-                <form action="/builder/new">
-                    <button type="submit" class="btn btn-dark form-control" style="margin-top: 10px">Create New Project</button>
-                </form>
+                {% include "partials/login_snippet.html" %}
             </div>
             <div class="col-md-5"></div>
         </div>

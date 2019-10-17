@@ -24,11 +24,21 @@ html_pages = db['html_pages']
 routes = db['routes']
 databases = db['databases']
 projects = db['projects']
+users = db['users']
 
 
 @app.route("/")
 def index():
-    return redirect(url_for("show_choose_project_page"))
+    return redirect(url_for("show_login"))
+
+@app.route("/login")
+def show_login():
+    return render_template('login.html')
+
+@app.route("/login/authorize")
+def login_user():
+    username = request.form.get('username')
+
 
 @app.route("/builder/<project_id>")
 def show_builder(project_id):
@@ -57,6 +67,9 @@ def remove_project(project_id):
     """Delete project based on project_id thats passted in."""
 
     html_pages.delete_many({'project_id': project_id})
+    databases.delete_many({'project_id': project_id})
+    routes.delete_many({'project_id': project_id})
+
     projects.delete_one({'_id': ObjectId(project_id)})
 
     return redirect(url_for("show_choose_project_page"))
@@ -95,6 +108,8 @@ def add_html_page():
         'description': request.form.get("description")
     }
 
+    projects.find_one_and_update({'_id': ObjectId(html_page['project_id'])}, {'$set': {'last_modified': datetime.now().strftime("%c")}})
+
     html_pages.insert_one(html_page)
     return redirect(url_for("show_builder", project_id=html_page['project_id']))
 
@@ -106,6 +121,8 @@ def remove_html_page(html_page_id):
     project_id = html_pages.find_one({'_id': ObjectId(html_page_id)})['project_id']
 
     html_pages.delete_one({'_id': ObjectId(html_page_id)})
+
+    projects.find_one_and_update({'_id': ObjectId(project_id)}, {'$set': {'last_modified': datetime.now().strftime("%c")}})
 
     return redirect(url_for("show_builder", project_id=project_id))
 
@@ -122,6 +139,8 @@ def add_database():
         'name': request.form.get("name"),
         'collections': collections}
 
+    projects.find_one_and_update({'_id': ObjectId(database['project_id'])}, {'$set': {'last_modified': datetime.now().strftime("%c")}})
+
     databases.insert_one(database)
 
     return redirect(url_for("show_builder", project_id=database['project_id']))
@@ -131,6 +150,8 @@ def remove_database(database_id):
     """Remove Database from builder by the database_id given."""
 
     project_id = databases.find_one({'_id': ObjectId(database_id)})['project_id']
+
+    projects.find_one_and_update({'_id': ObjectId(project_id)}, {'$set': {'last_modified': datetime.now().strftime("%c")}})
 
     databases.delete_one({'_id': ObjectId(database_id)})
 
@@ -151,6 +172,8 @@ def add_route():
         'description': request.form.get("description")
     }
 
+    projects.find_one_and_update({'_id': ObjectId(route['project_id'])}, {'$set': {'last_modified': datetime.now().strftime("%c")}})
+
     routes.insert_one(route)
 
     return redirect(url_for("show_builder", project_id=route['project_id']))
@@ -159,6 +182,8 @@ def add_route():
 def remove_route(route_id):
 
     project_id = routes.find_one({'_id': ObjectId(route_id)})['project_id']
+
+    projects.find_one_and_update({'_id': ObjectId(project_id)}, {'$set': {'last_modified': datetime.now().strftime("%c")}})
 
     routes.delete_one({'_id': ObjectId(route_id)})
 
