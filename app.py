@@ -51,6 +51,10 @@ def login_user():
 
     return redirect(url_for("show_choose_project_page", user_id=user_id))
 
+@app.route("/logout")
+def logout_user():
+    return redirect(url_for("show_login"))
+
 
 @app.route("/builder/<user_id>/<project_id>")
 def show_builder(user_id, project_id):

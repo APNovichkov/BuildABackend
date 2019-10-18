@@ -15,6 +15,12 @@
     padding-top: 20px;
 }
 
+.route-snippets{
+    display: grid;
+    grid-gap: 3px;
+    grid-template-columns: 1fr 1fr;
+}
+
 .add-html-button{
     padding-top: 20px;
     padding-bottom: 20px;

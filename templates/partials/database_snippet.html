@@ -1,16 +1,17 @@
-<div class="card" style="background-color: #F78888; padding-top: 10px">
+<div class="card" style="background-color: #F78888; padding-top: 20px; border: none;">
     <h4 class="card-title">Framework: {{ database.framework }}</h4>
     <div class="card-body text-center">
         <h5 class="card-text">Name: {{ database.name }}</h5>
         <h6 class="card-text">Collections:</h6>
-        <ul>
         {% for collection in database.collections %}
-            <li><h6 class="card-text">{{ collection }}</h6></li>
+            <span class="badge" style='background-color: #ECECEC'>{{ collection }}</span>
         {% endfor %}
-        </ul>
 
-        <form action="/builder/{{ user_id }}/delete-database/{{ database._id }}">
-            <button type="submit" class="btn btn-danger">Delete Database</button>
-        </form>
+
+        <div style="margin-top: 15px">
+            <form action="/builder/{{ user_id }}/delete-database/{{ database._id }}">
+                <button type="submit" class="btn btn-danger">Delete Database</button>
+            </form>
+        </div>
     </div>
   </div>

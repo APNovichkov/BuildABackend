@@ -8,7 +8,7 @@
             <div class="row-centered">
                 <div class="builder-header">
                     <div class="col-md-12" style="text-align: center">
-                        <h1 style="color: #38393b">Building {{ project.name }}</h1><hr/>
+                        <h1 style="color: #38393b">{Building: <b>{{ project.name }}</b>}</h1><hr/>
                     </div>
                 </div>
             </div>
@@ -51,8 +51,9 @@
                 <div class="col-md-4" style="text-align: center">
                     <div class="routes">
                         <!-- Show all current routes -->
+
                         {% for route in routes %}
-                            <div class="route-snippet">
+                            <div class="route-snippet card-group">
                                 {% include "partials/route_snippet.html" %}
                             </div>
                         {% endfor %}
@@ -105,12 +106,12 @@
 
                     </div>
                 </div>
-            </div>
+            </div><hr/>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-12" style="text-align: center; margin-top: 20px">
+        <div class="col-md-12" style="text-align: center; margin-top: 30px; margin-bottom: 50px">
 
         <form action="/builder/download/{{ project._id }}">
             <button type="submit" class="btn btn-dark">Download</button>
