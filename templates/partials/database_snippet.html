@@ -7,9 +7,13 @@
             <span class="badge" style='background-color: #ECECEC'>{{ collection }}</span>
         {% endfor %}
 
+        <br>
+        <button type="button" style="margin-top: 10px" class="btn btn-dark" data-toggle="modal" data-target="#edit-database">Edit Database</button>
 
-        <div style="margin-top: 15px">
-            <form action="/builder/{{ user_id }}/delete-database/{{ database._id }}">
+        {% include "partials/edit_database_modal.html" %}
+
+        <div style="margin-top: 10px">
+            <form action="/builder/{{ user_id }}/delete-database/{{ database._id }}" method="POST">
                 <button type="submit" class="btn btn-danger">Delete Database</button>
             </form>
         </div>

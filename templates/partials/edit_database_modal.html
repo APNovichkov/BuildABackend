@@ -1,0 +1,39 @@
+<!-- The Modal -->
+<div class="modal fade" id="edit-database">
+    <div class="modal-dialog">
+        <form action="/builder/{{ user_id }}/edit-database/{{ database._id }}" method="POST">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Database</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <fieldset>
+                        <input type="hidden" name="project-id" value={{ project._id }}>
+
+                        <div class="form-group">
+                            <select name="database-framework" class="custom-select">
+                                <option selected value="MongoDb">Select Database Framework</option>
+                                <option value="MongoDb">MongoDb</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <input class='form-control' id='db-name' type='text' name='name' value='{{ database.name }}' placeholder='Database Name'/>
+                        </div>
+                        <div class="form-group">
+                            <textarea class='form-control' id='collection-list' name='collections' rows='4' placeholder='Collection Names (separate with new lines!)'>{{ database.display_collections }}</textarea>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer justify-content-start">
+                    <button type="submit" class="btn btn-success">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

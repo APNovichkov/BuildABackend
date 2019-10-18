@@ -1,13 +1,17 @@
 <div class="card" style="background-color: #F3D250; padding-top: 20px;">
     <h4 class="card-title">URL: {{ html_page.url }}</h4>
     <div class="card-body text-center">
-        <h6 class="card-text">Filename: {{ html_page.name }}</h6>
+        <h6 class="card-text">Filename: {{ html_page.name }}.html</h6>
         <h6 class="card-text">HTTP Verb: {{ html_page.http_verb }}</h6>
         <h6 class="card-text">Action: {{ html_page.action }}</h6>
-        <p class="card-text">{{ html_page.description }}</p>
+        <p class="card-text">"{{ html_page.description }}"</p>
+
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#edit-html-page">Edit Page</button>
+
+        {% include "partials/edit_html_modal.html" %}
 
         <form action="/builder/{{ user_id }}/delete-html-page/{{ html_page._id }}">
-            <button type="submit" class="btn btn-danger">Delete Page</button>
+            <button type="submit" class="btn btn-danger" style="margin-top: 10px">Delete Page</button>
         </form>
     </div>
   </div>

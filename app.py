@@ -149,6 +149,28 @@ def remove_html_page(user_id, html_page_id):
 
     return redirect(url_for("show_builder", user_id=user_id, project_id=project_id))
 
+
+@app.route("/builder/<user_id>/edit-html-page/<html_page_id>", methods=['POST'])
+def edit_html_page(user_id, html_page_id):
+    """Edit HTML page."""
+
+    project_id = html_pages.find_one({'_id': ObjectId(html_page_id)})['project_id']
+    projects.find_one_and_update({'_id': ObjectId(project_id)}, {'$set': {'last_modified': datetime.now().strftime("%c")}})
+
+    updated_html_page = {
+        'project_id': request.form.get('project-id'),
+        'name': request.form.get("name"),
+        'url': request.form.get('url'),
+        'http_verb': request.form.get("http-verb"),
+        'action': request.form.get("action"),
+        'description': request.form.get("description")
+    }
+
+    html_pages.update_one({'_id': ObjectId(html_page_id)}, {'$set': updated_html_page})
+
+    return redirect(url_for("show_builder", user_id=user_id, project_id=project_id))
+
+
 # CRUD for DATABASES
 @app.route("/builder/<user_id>/add-database", methods=['POST'])
 def add_database(user_id):
@@ -160,7 +182,8 @@ def add_database(user_id):
         'project_id': request.form.get("project-id"),
         'framework': request.form.get("database-framework"),
         'name': request.form.get("name"),
-        'collections': collections}
+        'collections': collections,
+        'display_collections': request.form.get('collections')}
 
     projects.find_one_and_update({'_id': ObjectId(database['project_id'])}, {'$set': {'last_modified': datetime.now().strftime("%c")}})
 
@@ -168,7 +191,7 @@ def add_database(user_id):
 
     return redirect(url_for("show_builder", user_id=user_id, project_id=database['project_id']))
 
-@app.route("/builder/<user_id>/delete-database/<database_id>")
+@app.route("/builder/<user_id>/delete-database/<database_id>", methods=['POST'])
 def remove_database(user_id, database_id):
     """Remove Database from builder by the database_id given."""
 
@@ -177,6 +200,26 @@ def remove_database(user_id, database_id):
     projects.find_one_and_update({'_id': ObjectId(project_id)}, {'$set': {'last_modified': datetime.now().strftime("%c")}})
 
     databases.delete_one({'_id': ObjectId(database_id)})
+
+    return redirect(url_for("show_builder", user_id=user_id, project_id=project_id))
+
+@app.route("/builder/<user_id>/edit-database/<database_id>", methods=['POST'])
+def edit_database(user_id, database_id):
+    """Edit Database."""
+
+    project_id = databases.find_one({'_id': ObjectId(database_id)})['project_id']
+    projects.find_one_and_update({'_id': ObjectId(project_id)}, {'$set': {'last_modified': datetime.now().strftime("%c")}})
+
+    collections = request.form.get('collections').split()
+
+    updated_database = {
+        'project_id': request.form.get("project-id"),
+        'framework': request.form.get("database-framework"),
+        'name': request.form.get("name"),
+        'collections': collections,
+        'display_collections': request.form.get('collections')}
+
+    databases.update_one({'_id': ObjectId(database_id)}, {'$set': updated_database})
 
     return redirect(url_for("show_builder", user_id=user_id, project_id=project_id))
 
@@ -212,7 +255,27 @@ def remove_route(user_id, route_id):
 
     return redirect(url_for("show_builder", user_id=user_id, project_id=project_id))
 
+@app.route("/builder/<user_id>/edit-route/<route_id>", methods=['POST'])
+def edit_route(user_id, route_id):
 
+    updated_route = {
+        'project_id': request.form.get('project-id'),
+        'url': request.form.get('url'),
+        'name': request.form.get('name'),
+        'http_verb': request.form.get("http-verb"),
+        'action': request.form.get("action"),
+        'description': request.form.get("description")
+    }
+
+    project_id = routes.find_one({'_id': ObjectId(route_id)})['project_id']
+    projects.find_one_and_update({'_id': ObjectId(project_id)}, {'$set': {'last_modified': datetime.now().strftime("%c")}})
+
+    routes.update_one({'_id': ObjectId(route_id)}, {'$set': updated_route})
+
+    return redirect(url_for("show_builder", user_id=user_id, project_id=project_id))
+
+
+# Download Logic
 @app.route("/builder/download/<project_id>")
 def download_project(project_id):
     """Use the DataProvider to call the download method giving it the project_id."""

@@ -1,13 +1,18 @@
 <div class="card" style="background-color: #90CCE4; padding-top: 10px">
     <h4 class="card-title">URL: {{ route.url }}</h4>
     <div class="card-body text-center">
-        <h6 class="card-text">Name: {{ route.name }}</h6>
+        <h6 class="card-text">Function Name: {{ route.name }}()</h6>
         <h6 class="card-text">HTTP Verb: {{ route.http_verb }}</h6>
         <h6 class="card-text">Action: {{ route.action }}</h6>
-        <p class="card-text">{{ route.description }}</p>
+        <p class="card-text">"{{ route.description }}"</p>
+
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#edit-route">Edit Route</button>
+
+        {% include "partials/edit_route_modal.html" %}
 
         <form action="/builder/{{ user_id }}/delete_route/{{ route._id }}" method="POST">
-            <button type="submit" class="btn btn-danger">Delete Route</button>
+            <button type="submit" class="btn btn-danger" style="margin-top: 10px">Delete Route</button>
         </form>
+
     </div>
   </div>
