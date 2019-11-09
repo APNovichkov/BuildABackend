@@ -1,5 +1,7 @@
 Welcome to BuildABackend! 
 
+The url of the project -> buildabackend.herokuapp.com
+
 This is a web platform to help YOU design backend architecture for your project.
 We are currently only supporting the Flask/Jinja and MongoDb frameworks, but more will come at a later time!
 
