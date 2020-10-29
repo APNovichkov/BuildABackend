@@ -21,9 +21,8 @@ This is a web platform to help YOU design backend architecture for your project.
 ## Table of Contents
 - [Installation](#installation)
   - [Manual](#manual)
--   [Examples](#examples)
--   [License](#license)
--   [Contributors](#contributors)
+  - [License](#license)
+  - [Contributors](#contributors)
 
 <a name="installation"></a>
 
